@@ -19,26 +19,26 @@ class DetailTaskActivity : AppCompatActivity() {
         setContentView(R.layout.activity_task_detail)
 
         //TODO 11 : Show detail task and implement delete action
-        val idTask = intent.getIntExtra(TASK_ID,1)
-        val factory = ViewModelFactory.getInstance(this)
-        val modell = ViewModelProvider(this, factory).get(DetailTaskViewModel::class.java)
-        val detailEditTitle: EditText = findViewById(R.id.detail_ed_title)
-        val detailEditDescription: EditText = findViewById(R.id.detail_ed_description)
-        val detailEditDate: EditText = findViewById(R.id.detail_ed_due_date)
-        val deleteButton: Button = findViewById(R.id.btn_delete_task)
-        modell.setTaskId(idTask)
-        modell.task.observe(this){
-            detailEditTitle.setText(it.title)
-            detailEditDescription.setText(it.description)
-            detailEditDate.setText(DateConverter.convertMillisToString(it.dueDateMillis))
-
-            deleteButton.setOnClickListener {
-                modell.task.removeObservers(this)
-                modell.deleteTask()
-
-                val toDetail = Intent(this, TaskActivity::class.java)
-                this.startActivity(toDetail)
-            }
-        }
+//        val idTask = intent.getIntExtra(TASK_ID,1)
+//        val factory = ViewModelFactory.getInstance(this)
+//        val modell = ViewModelProvider(this, factory).get(DetailTaskViewModel::class.java)
+//        val detailEditTitle: EditText = findViewById(R.id.detail_ed_title)
+//        val detailEditDescription: EditText = findViewById(R.id.detail_ed_description)
+//        val detailEditDate: EditText = findViewById(R.id.detail_ed_due_date)
+//        val deleteButton: Button = findViewById(R.id.btn_delete_task)
+//        modell.setTaskId(idTask)
+//        modell.task.observe(this){
+//            detailEditTitle.setText(it.title)
+//            detailEditDescription.setText(it.description)
+//            detailEditDate.setText(DateConverter.convertMillisToString(it.dueDateMillis))
+//
+//            deleteButton.setOnClickListener {
+//                modell.task.removeObservers(this)
+//                modell.deleteTask()
+//
+//                val toDetail = Intent(this, TaskActivity::class.java)
+//                this.startActivity(toDetail)
+//            }
+//        }
     }
 }
