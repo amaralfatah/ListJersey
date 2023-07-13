@@ -10,4 +10,5 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="text_icon_outline">#808080</color>
+    <color name="primary_color">#FE6D41</color>
 </resources>
