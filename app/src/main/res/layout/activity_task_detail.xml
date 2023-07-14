@@ -33,7 +33,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_detail_pelanggan">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/add_ed_title"
+                android:id="@+id/edNama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="textEnd"
@@ -52,7 +52,7 @@
             app:layout_constraintTop_toBottomOf="@+id/nama_layout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/add_ed_description"
+                android:id="@+id/edAlamat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="5"
@@ -72,7 +72,7 @@
             app:layout_constraintTop_toBottomOf="@+id/alamat_layout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/add_ed_name"
+                android:id="@+id/edNoHp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
@@ -146,7 +146,7 @@
             app:layout_constraintTop_toBottomOf="@+id/address_layout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/add_ed_phone"
+                android:id="@+id/edBahan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
@@ -165,7 +165,7 @@
             app:layout_constraintTop_toBottomOf="@+id/phone_layout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/add_ed_jumlah"
+                android:id="@+id/edJumlah"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -191,7 +191,7 @@
                 android:src="@drawable/ic_date" />
 
             <TextView
-                android:id="@+id/add_tv_due_date"
+                android:id="@+id/dueDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -209,7 +209,7 @@
             app:layout_constraintTop_toBottomOf="@+id/date_layout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/add_ed_note"
+                android:id="@+id/edNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="10"
@@ -240,6 +240,17 @@
             app:layout_constraintStart_toEndOf="@id/btn_hapus"
             app:layout_constraintTop_toBottomOf="@+id/note_layout" />
 
+        <ImageView
+            android:id="@+id/ivPreview"
+            android:layout_width="146dp"
+            android:layout_height="166dp"
+            android:layout_marginTop="76dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.556"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_simpan"
+            app:srcCompat="@drawable/ic_photo_black_48dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

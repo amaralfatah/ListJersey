@@ -31,11 +31,11 @@ class TaskActivityTest {
         val addTask = getAddTaskActivity()
         TestCase.assertTrue(addTask?.javaClass == AddTaskActivity::class.java)
 
-        Espresso.onView(ViewMatchers.withId(R.id.add_ed_title))
+        Espresso.onView(ViewMatchers.withId(R.id.edNama))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.add_ed_description))
+        Espresso.onView(ViewMatchers.withId(R.id.edAlamat))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.add_tv_due_date))
+        Espresso.onView(ViewMatchers.withId(R.id.dueDate))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
     }

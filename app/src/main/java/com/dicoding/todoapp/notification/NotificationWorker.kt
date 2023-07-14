@@ -51,7 +51,7 @@ class NotificationWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, p
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val builder = NotificationCompat.Builder(context, channelKey)
             .setSmallIcon(R.drawable.ic_notifications)
-            .setContentTitle(task.title)
+            .setContentTitle(task.dueDateMillis.toString())
             .setContentText(messages)
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)

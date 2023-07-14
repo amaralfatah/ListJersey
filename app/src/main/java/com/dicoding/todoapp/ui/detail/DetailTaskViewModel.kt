@@ -18,7 +18,7 @@ class DetailTaskViewModel(private val taskRepository: TaskRepository): ViewModel
         if (taskId == _taskId.value) {
             return
         }
-        _taskId.value = taskId
+        _taskId.value = taskId!!
     }
 
     fun deleteTask() {

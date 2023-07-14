@@ -16,7 +16,7 @@ import java.io.IOException
 import java.io.InputStreamReader
 
 //TODO 3 : Define room database class and prepopulate database using JSON
-@Database(entities = [Task::class], version = 1, exportSchema = true)
+@Database(entities = [Task::class], version = 3, exportSchema = true)
 abstract class TaskDatabase : RoomDatabase() {
 
     abstract fun taskDao(): TaskDao
@@ -36,61 +36,15 @@ abstract class TaskDatabase : RoomDatabase() {
                 INSTANCE = instance
                 val preferences = context.getSharedPreferences("preferences", Context.MODE_PRIVATE)
                 val isLoading = preferences.getBoolean("isLoad", false)
-                if(!isLoading){
+                if (!isLoading) {
                     preferences.edit().putBoolean("isLoad", true).apply()
-                    runBlocking{
+                    runBlocking {
                         withContext(Dispatchers.IO) {
-                            fillWithStartingData(
-                                context,
-                                instance.taskDao()
-                            )
                         }
                     }
                 }
                 instance
             }
         }
-
-        private fun fillWithStartingData(context: Context, dao: TaskDao) {
-            val task = loadJsonArray(context)
-            try {
-                if (task != null) {
-                    for (i in 0 until task.length()) {
-                        val item = task.getJSONObject(i)
-                        dao.insertAll(
-                            Task(
-                                item.getInt("id"),
-                                item.getString("title"),
-                                item.getString("description"),
-                                item.getLong("dueDate"),
-                                item.getBoolean("completed")
-                            )
-                        )
-                    }
-                }
-            } catch (exception: JSONException) {
-                exception.printStackTrace()
-            }
-        }
-
-        private fun loadJsonArray(context: Context): JSONArray? {
-            val builder = StringBuilder()
-            val `in` = context.resources.openRawResource(R.raw.task)
-            val reader = BufferedReader(InputStreamReader(`in`))
-            var line: String?
-            try {
-                while (reader.readLine().also { line = it } != null) {
-                    builder.append(line)
-                }
-                val json = JSONObject(builder.toString())
-                return json.getJSONArray("tasks")
-            } catch (exception: IOException) {
-                exception.printStackTrace()
-            } catch (exception: JSONException) {
-                exception.printStackTrace()
-            }
-            return null
-        }
-
     }
 }

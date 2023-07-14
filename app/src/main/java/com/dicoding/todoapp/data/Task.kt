@@ -10,23 +10,26 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "tasks")
 data class Task(
     @PrimaryKey(autoGenerate = true)
-    @NonNull
     @ColumnInfo(name = "id")
     val id: Int = 0,
 
-    @NonNull
-    @ColumnInfo(name = "title")
-    val title: String,
+    val namaPelanggan: String,
 
-    @NonNull
-    @ColumnInfo(name = "description")
-    val description: String,
+    val alamat: String,
 
-    @NonNull
+    val noHp: String,
+
+    val imagePath: String,
+
+    val bahan: String,
+
+    val jumlah: Int,
+
     @ColumnInfo(name = "dueDateMillis")
     val dueDateMillis: Long,
 
-    @NonNull
+    val note: String,
+
     @ColumnInfo(name = "completed")
     val isCompleted: Boolean = false
 )

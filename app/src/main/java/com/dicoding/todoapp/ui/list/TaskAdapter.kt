@@ -24,7 +24,6 @@ class TaskAdapter(
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
         return TaskViewHolder(view)
-        throw NotImplementedError("Not yet implemented")
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
@@ -62,7 +61,7 @@ class TaskAdapter(
 
         fun bind(task: Task) {
             getTask = task
-            tvTitle.text = task.title
+            tvTitle.text = task.namaPelanggan
             tvDueDate.text = DateConverter.convertMillisToString(task.dueDateMillis)
             itemView.setOnClickListener {
                 val detailIntent = Intent(itemView.context, DetailTaskActivity::class.java)
