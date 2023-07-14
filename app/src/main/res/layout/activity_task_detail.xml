@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="5"
                 android:textAlignment="textEnd"
-                android:inputType="textLongMessage"/>
+                android:inputType="textMultiLine"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -214,7 +214,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="10"
                 android:textAlignment="textEnd"
-                android:inputType="textLongMessage"/>
+                android:inputType="textMultiLine"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
