@@ -40,8 +40,7 @@ class DetailTaskActivity : AppCompatActivity() {
         model.task.observe(this){
             binding.edNama.setText(it.namaPelanggan)
             binding.edAlamat.setText(it.alamat)
-            val imageBitmap = BitmapFactory.decodeFile(it.imagePath)
-            binding.ivPreview.setImageBitmap(imageBitmap)
+            binding.ivPreview.setImageURI(Uri.parse(it.imagePath))
             binding.edBahan.setText(it.bahan)
             binding.edJumlah.setText(it.jumlah.toString())
             binding.dueDate.text = DateConverter.convertMillisToString(it.dueDateMillis)

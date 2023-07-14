@@ -2,6 +2,7 @@ package com.dicoding.todoapp.ui.add
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -16,6 +17,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toFile
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.todoapp.R
 import com.dicoding.todoapp.data.Task
@@ -24,6 +26,8 @@ import com.dicoding.todoapp.ui.ViewModelFactory
 import com.dicoding.todoapp.ui.list.TaskActivity
 import com.dicoding.todoapp.utils.DatePickerFragment
 import com.github.dhaval2404.imagepicker.ImagePicker
+import java.io.ByteArrayOutputStream
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,6 +37,7 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
     }
     private var imageUri: Uri? = null
     private var imageBitmap: Bitmap? = null
+    private var imageFile: File? =null
     private var dueDateMillis: Long = System.currentTimeMillis()
     private lateinit var binding: ActivityAddTaskBinding
 
@@ -60,7 +65,7 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
                 val factory = ViewModelFactory.getInstance(this)
                 val model = ViewModelProvider(this, factory)[AddTaskViewModel::class.java]
                 model.addTask(Task(0, binding.edNama.text.toString(), binding.edAlamat.text.toString(), binding.edNoHp.text.toString(),
-                imageUri!!.path.toString(),binding.edBahan.text.toString(),binding.edJumlah.text.toString().toInt(), dueDateMillis, binding.edNote.text.toString()))
+                imageUri!!.path!!,binding.edBahan.text.toString(),binding.edJumlah.text.toString().toInt(), dueDateMillis, binding.edNote.text.toString()))
                 val detailIntent = Intent(this, TaskActivity::class.java)
                 this.startActivity(detailIntent)
 
@@ -132,15 +137,12 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
             when (requestCode) {
                 REQUEST_CODE_IMAGE_PICKER -> {
                     imageUri = data!!.data
+
                     binding.selectedImage.setImageURI(imageUri)
 
                     imageBitmap = MediaStore.Images.Media.getBitmap(
                         this.contentResolver, imageUri
                     )
-
-                   // val file = uriToFile(imageUri!!, this)
-
-                   // getFile = file
                 }
 
             }
