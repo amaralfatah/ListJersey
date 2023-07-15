@@ -29,7 +29,10 @@ class NotificationWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, p
         return TaskStackBuilder.create(applicationContext).run {
             addNextIntentWithParentStack(intent)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+                getPendingIntent(
+                    0,
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
             } else {
                 getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
             }
@@ -44,9 +47,12 @@ class NotificationWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, p
         return Result.success()
     }
 
-    private fun showNotification(context: Context, task: Task){
+    private fun showNotification(context: Context, task: Task) {
         val channelKey = "Amar Channel"
-        val messages = context.resources.getString(R.string.notify_content, DateConverter.convertMillisToString(task.dueDateMillis))
+        val messages = context.resources.getString(
+            R.string.notify_content,
+            DateConverter.convertMillisToString(task.dueDateMillis)
+        )
         val notificationManagerCompat =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val builder = NotificationCompat.Builder(context, channelKey)

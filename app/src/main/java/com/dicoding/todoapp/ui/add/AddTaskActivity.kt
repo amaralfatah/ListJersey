@@ -2,7 +2,6 @@ package com.dicoding.todoapp.ui.add
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -11,7 +10,6 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
@@ -21,7 +19,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.net.toFile
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.todoapp.R
 import com.dicoding.todoapp.data.Task
@@ -30,20 +27,18 @@ import com.dicoding.todoapp.ui.ViewModelFactory
 import com.dicoding.todoapp.ui.list.TaskActivity
 import com.dicoding.todoapp.utils.DatePickerFragment
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.android.material.textfield.TextInputLayout
 import com.squareup.picasso.Picasso
-import java.io.ByteArrayOutputStream
-import java.io.File
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 
 class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListener {
     companion object {
         private const val REQUEST_CODE_IMAGE_PICKER = 100
     }
+
     private var imageUri: Uri? = null
     private var imageBitmap: Bitmap? = null
-    private var imageFile: File? =null
     private var dueDateMillis: Long = System.currentTimeMillis()
     private lateinit var binding: ActivityAddTaskBinding
 
@@ -72,42 +67,59 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
             checkStoragePermission()
         }
 
-        binding.btnSave.setOnClickListener{
+        binding.btnSave.setOnClickListener {
             save()
         }
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        menuInflater.inflate(R.menu.menu_add, menu)
-//        return true
-//    }
-    private fun save(){
-        val factory = ViewModelFactory.getInstance(this)
-        val model = ViewModelProvider(this, factory)[AddTaskViewModel::class.java]
-        model.addTask(Task(0, binding.edNama.text.toString(), binding.edAlamat.text.toString(), binding.edNoHp.text.toString(),
-            imageUri.toString(),binding.autoCompleteTextViewBahan.text.toString(),binding.edJumlah.text.toString().toInt(), dueDateMillis, binding.edNote.text.toString()))
-        val detailIntent = Intent(this, TaskActivity::class.java)
-        this.startActivity(detailIntent)
-        true
+    private fun save() {
+        if (imageUri.toString().isEmpty()) {
+            Toast.makeText(this, "Foto tidak boleh kosong", Toast.LENGTH_SHORT).show()
+        } else if (!resources.getStringArray(R.array.bahanSpinner)
+                .contains(binding.autoCompleteTextViewBahan.text.toString())
+        ) {
+            Toast.makeText(this, "Bahan tidak boleh yang tidak ada dalam list", Toast.LENGTH_SHORT)
+                .show()
+        } else if (
+            binding.edNama.text.toString().isEmpty() ||
+            binding.edAlamat.text.toString().isEmpty() ||
+            binding.edNoHp.text.toString().isEmpty() ||
+            imageUri.toString().isEmpty() ||
+            binding.autoCompleteTextViewBahan.text.toString().isEmpty() ||
+            binding.edJumlah.text.toString().isEmpty() ||
+            binding.edNote.text.toString().isEmpty()
+        ) {
+            Toast.makeText(this, "Data tidak boleh kosong", Toast.LENGTH_SHORT)
+                .show()
+        } else {
+            val factory = ViewModelFactory.getInstance(this)
+            val model = ViewModelProvider(this, factory)[AddTaskViewModel::class.java]
+            model.addTask(
+                Task(
+                    0,
+                    binding.edNama.text.toString(),
+                    binding.edAlamat.text.toString(),
+                    binding.edNoHp.text.toString(),
+                    imageUri.toString(),
+                    binding.autoCompleteTextViewBahan.text.toString(),
+                    binding.edJumlah.text.toString().toInt(),
+                    dueDateMillis,
+                    binding.edNote.text.toString()
+                )
+            )
+            val detailIntent = Intent(this, TaskActivity::class.java)
+            this.startActivity(detailIntent)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-//            R.id.btn_save -> {
-//                val factory = ViewModelFactory.getInstance(this)
-//                val model = ViewModelProvider(this, factory)[AddTaskViewModel::class.java]
-//                model.addTask(Task(0, binding.edNama.text.toString(), binding.edAlamat.text.toString(), binding.edNoHp.text.toString(),
-//                imageUri.toString(),binding.autoCompleteTextViewBahan.text.toString(),binding.edJumlah.text.toString().toInt(), dueDateMillis, binding.edNote.text.toString()))
-//                val detailIntent = Intent(this, TaskActivity::class.java)
-//                this.startActivity(detailIntent)
-//                true
-//            }
 
             android.R.id.home -> {
-                // Kembali ke Fragment sebelumnya
                 onBackPressed()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -172,17 +184,14 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 REQUEST_CODE_IMAGE_PICKER -> {
-                    imageUri = data!!.data
 
-//                    binding.selectedImage.setImageURI(imageUri)
+                    imageUri = data!!.data as Uri
                     Picasso.get().load(imageUri).into(binding.selectedImage)
-
 
                     imageBitmap = MediaStore.Images.Media.getBitmap(
                         this.contentResolver, imageUri
                     )
 
-                    // Menampilkan gambar yang terpilih
                     binding.selectedImage.visibility = View.VISIBLE
                 }
 

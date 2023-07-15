@@ -10,9 +10,11 @@ object FilterUtils {
             TasksFilterType.COMPLETED_TASKS -> {
                 simpleQuery.append("WHERE completed = 1")
             }
+
             TasksFilterType.ACTIVE_TASKS -> {
                 simpleQuery.append("WHERE completed = 0")
             }
+
             else -> {
                 // ALL_TASKS
             }

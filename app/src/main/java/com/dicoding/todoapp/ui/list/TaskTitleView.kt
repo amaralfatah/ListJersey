@@ -27,14 +27,17 @@ class TaskTitleView : AppCompatTextView {
                     paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                     setTextColor(ContextCompat.getColor(context, R.color.black))
                 }
+
                 NORMAL -> {
                     paintFlags = 0
                     setTextColor(ContextCompat.getColor(context, R.color.black))
                 }
+
                 OVERDUE -> {
                     paintFlags = 0
                     setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark))
                 }
+
                 else -> return
             }
             mState = state

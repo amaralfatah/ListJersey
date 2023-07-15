@@ -105,7 +105,6 @@ class TaskActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 taskViewModel.filterTasks(newText)
-                searchView.clearFocus()
                 return true
             }
 
@@ -120,14 +119,15 @@ class TaskActivity : AppCompatActivity() {
                 startActivity(settingIntent)
                 true
             }
+
             R.id.action_filter -> {
                 showFilteringPopUpMenu()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 
 
     private fun showFilteringPopUpMenu() {

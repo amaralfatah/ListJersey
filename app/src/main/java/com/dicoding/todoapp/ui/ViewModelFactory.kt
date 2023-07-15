@@ -29,12 +29,15 @@ class ViewModelFactory private constructor(private val taskRepository: TaskRepos
             modelClass.isAssignableFrom(TaskViewModel::class.java) -> {
                 TaskViewModel(taskRepository) as T
             }
+
             modelClass.isAssignableFrom(DetailTaskViewModel::class.java) -> {
                 DetailTaskViewModel(taskRepository) as T
             }
+
             modelClass.isAssignableFrom(AddTaskViewModel::class.java) -> {
                 AddTaskViewModel(taskRepository) as T
             }
+
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }
 }

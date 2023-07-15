@@ -49,7 +49,7 @@ class TaskRepository(private val tasksDao: TaskDao) {
         return tasksDao.getNearestActiveTask()
     }
 
-    suspend fun insertTask(newTask: Task): Long{
+    suspend fun insertTask(newTask: Task): Long {
         return tasksDao.insertTask(newTask)
     }
 
@@ -59,6 +59,30 @@ class TaskRepository(private val tasksDao: TaskDao) {
 
     suspend fun completeTask(task: Task, isCompleted: Boolean) {
         tasksDao.updateCompleted(task.id, isCompleted)
+    }
+
+    suspend fun updateTask(
+        task: Task,
+        nama: String,
+        alamat: String,
+        noHp: String,
+        imagePath: String,
+        bahan: String,
+        jumlah: Int,
+        dueDateMillis: Long,
+        note: String
+    ) {
+        tasksDao.updateTask(
+            task.id,
+            nama,
+            alamat,
+            noHp,
+            imagePath,
+            bahan,
+            jumlah,
+            dueDateMillis,
+            note
+        )
     }
 
     fun getTaskFilter(filter: TasksFilterType = TasksFilterType.ALL_TASKS): LiveData<PagedList<Task>> {

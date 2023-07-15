@@ -6,10 +6,10 @@ import com.dicoding.todoapp.data.Task
 import com.dicoding.todoapp.data.TaskRepository
 import kotlinx.coroutines.launch
 
-class AddTaskViewModel(private val taskRepository: TaskRepository): ViewModel() {
+class AddTaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
 
-    fun addTask(data: Task){
-        viewModelScope.launch{
+    fun addTask(data: Task) {
+        viewModelScope.launch {
             taskRepository.insertTask(data)
         }
     }
