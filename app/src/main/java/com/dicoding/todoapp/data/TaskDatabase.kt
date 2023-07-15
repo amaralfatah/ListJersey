@@ -9,7 +9,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 //TODO 3 : Define room database class and prepopulate database using JSON
-@Database(entities = [Task::class], version = 3, exportSchema = true)
+@Database(entities = [Task::class], version = 1, exportSchema = true)
 abstract class TaskDatabase : RoomDatabase() {
 
     abstract fun taskDao(): TaskDao

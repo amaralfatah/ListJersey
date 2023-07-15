@@ -116,6 +116,7 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
                     binding.edNoHp.text.toString(),
                     imageUri.toString(),
                     binding.autoCompleteTextViewBahan.text.toString(),
+                    binding.spinnerModeJahit.selectedItem.toString(),
                     binding.edJumlah.text.toString().toInt(),
                     dueDateMillis,
                     binding.edNote.text.toString()

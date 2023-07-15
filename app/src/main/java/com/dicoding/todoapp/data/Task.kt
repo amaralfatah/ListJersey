@@ -22,6 +22,8 @@ data class Task(
 
     val bahan: String,
 
+    val model: String,
+
     val jumlah: Int,
 
     @ColumnInfo(name = "dueDateMillis")

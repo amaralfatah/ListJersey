@@ -37,6 +37,7 @@ class DetailTaskViewModel(private val taskRepository: TaskRepository) : ViewMode
         noHp: String,
         imagePath: String,
         bahan: String,
+        model: String,
         jumlah: Int,
         dueDateMillis: Long,
         note: String
@@ -50,6 +51,7 @@ class DetailTaskViewModel(private val taskRepository: TaskRepository) : ViewMode
                     noHp,
                     imagePath,
                     bahan,
+                    model,
                     jumlah,
                     dueDateMillis,
                     note

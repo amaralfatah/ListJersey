@@ -38,7 +38,7 @@ interface TaskDao {
     @Query("SELECT * FROM tasks WHERE namaPelanggan LIKE :query OR alamat LIKE :query OR noHp LIKE :query OR bahan LIKE :query OR note LIKE :query")
     fun searchTasks(query: String): DataSource.Factory<Int, Task>
 
-    @Query("UPDATE tasks SET namaPelanggan = :nama, alamat = :alamat, noHp = :noHp, imagePath = :imagePath, bahan = :bahan, jumlah = :jumlah, dueDateMillis = :dueDateMillis, note = :note WHERE id = :taskId")
+    @Query("UPDATE tasks SET namaPelanggan = :nama, alamat = :alamat, noHp = :noHp, imagePath = :imagePath, bahan = :bahan, model = :model, jumlah = :jumlah, dueDateMillis = :dueDateMillis, note = :note WHERE id = :taskId")
     suspend fun updateTask(
         taskId: Int,
         nama: String,
@@ -46,6 +46,7 @@ interface TaskDao {
         noHp: String,
         imagePath: String,
         bahan: String,
+        model: String,
         jumlah: Int,
         dueDateMillis: Long,
         note: String
