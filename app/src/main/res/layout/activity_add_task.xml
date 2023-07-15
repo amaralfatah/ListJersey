@@ -11,13 +11,13 @@
 
     <TextView
         android:id="@+id/tv_detail_pelanggan"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Detail Pelanggan"
         android:textAlignment="center"
         android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/primary_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,15 +82,16 @@
 
     <TextView
         android:id="@+id/tv_detail_pesanan"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Detail Jersey"
+        android:text="Detail Pesanan"
         android:textSize="16dp"
         android:textStyle="bold"
-        android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@+id/nomorhp_layout"
-        tools:layout_editor_absoluteX="16dp" />
+        android:textColor="@color/primary_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nomorhp_layout" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/address_layout"
@@ -121,27 +122,40 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
+        <ImageView
+            android:id="@+id/selected_image"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_below="@id/add_ed_address"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/logo"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_ed_address" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/bahan_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Bahan"
-        android:id="@+id/phone_layout"
         android:layout_marginTop="12dp"
-        app:startIconDrawable="@drawable/baseline_bahan_24"
-        app:layout_constraintTop_toBottomOf="@+id/address_layout">
+        android:hint="Bahan"
+        app:endIconMode="clear_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address_layout"
+        app:startIconDrawable="@drawable/baseline_bahan_24">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edBahan"
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/autoCompleteTextViewBahan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:textAlignment="textEnd"
-            android:inputType="text" />
+            android:ems="10"
+            android:padding="8dp" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -152,7 +166,7 @@
         android:id="@+id/jumlah_layout"
         android:layout_marginTop="12dp"
         app:startIconDrawable="@drawable/baseline_jumlah_24"
-        app:layout_constraintTop_toBottomOf="@+id/phone_layout">
+        app:layout_constraintTop_toBottomOf="@+id/bahan_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edJumlah"
@@ -209,7 +223,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_save"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginTop="12dp"
@@ -217,17 +231,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/note_layout" />
-
-    <ImageView
-        android:id="@+id/selectedImage"
-        android:layout_width="123dp"
-        android:layout_height="101dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:srcCompat="@drawable/ic_photo_black_48dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

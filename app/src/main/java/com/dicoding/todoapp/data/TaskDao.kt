@@ -35,4 +35,7 @@ interface TaskDao {
     @Query("UPDATE tasks SET completed = :completed WHERE id = :taskId")
     suspend fun updateCompleted(taskId: Int, completed: Boolean)
 
+    @Query("SELECT * FROM tasks WHERE namaPelanggan LIKE :query OR alamat LIKE :query OR noHp LIKE :query OR bahan LIKE :query OR note LIKE :query")
+    fun searchTasks(query: String): DataSource.Factory<Int, Task>
+
 }

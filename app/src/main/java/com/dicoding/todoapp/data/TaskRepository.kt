@@ -60,4 +60,25 @@ class TaskRepository(private val tasksDao: TaskDao) {
     suspend fun completeTask(task: Task, isCompleted: Boolean) {
         tasksDao.updateCompleted(task.id, isCompleted)
     }
+
+    fun getTaskFilter(filter: TasksFilterType = TasksFilterType.ALL_TASKS): LiveData<PagedList<Task>> {
+        val query = FilterUtils.getFilteredQuery(filter)
+        val tasks = tasksDao.getTasks(query)
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(PLACEHOLDERS)
+            .setInitialLoadSizeHint(30)
+            .setPageSize(PAGE_SIZE)
+            .build()
+        return LivePagedListBuilder(tasks, config).build()
+    }
+
+    fun searchTask(query: String): LiveData<PagedList<Task>> {
+        val tasks = tasksDao.searchTasks("%$query%")
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(PLACEHOLDERS)
+            .setInitialLoadSizeHint(30)
+            .setPageSize(PAGE_SIZE)
+            .build()
+        return LivePagedListBuilder(tasks, config).build()
+    }
 }

@@ -12,6 +12,21 @@ import kotlinx.coroutines.launch
 class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
 
     private val _filter = MutableLiveData<TasksFilterType>()
+    private val _filterText = MutableLiveData<String>()
+
+    val tasksFilter: LiveData<PagedList<Task>> = _filterText.switchMap { query ->
+        if (query.isNullOrEmpty()) {
+            taskRepository.getTaskFilter()
+        } else {
+            taskRepository.searchTask(query)
+        }
+    }
+
+
+    fun filterTasks(query: String) {
+        _filterText.value = query
+    }
+
 
     val tasks: LiveData<PagedList<Task>> = _filter.switchMap {
         taskRepository.getTasks(it)
@@ -42,4 +57,5 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
             taskRepository.deleteTask(task)
         }
     }
+
 }

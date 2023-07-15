@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
@@ -52,6 +53,8 @@ class TaskActivity : AppCompatActivity() {
 
         taskViewModel.tasks.observe(this, Observer(this::showRecyclerView))
 
+        taskViewModel.tasksFilter.observe(this, Observer(this::showRecyclerViewFilter))
+
         //TODO 15 : Fixing bug : snackBar not show when task completed
         taskViewModel.snackbarText.observe(this, Observer(this::showSnackBar))
     }
@@ -77,8 +80,36 @@ class TaskActivity : AppCompatActivity() {
         ).show()
     }
 
+
+    private fun showRecyclerViewFilter(task: PagedList<Task>) {
+        //TODO 7 : Submit pagedList to adapter and update database when onCheckChange
+        val adapter = TaskAdapter { it, flag ->
+            taskViewModel.completeTask(it, flag)
+        }
+        val recyclerView: RecyclerView = findViewById(R.id.rv_task)
+        recyclerView.adapter = adapter
+        taskViewModel.tasksFilter.observe(this) {
+            adapter.submitList(task)
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+        val searchItem = menu.findItem(R.id.action_search)
+        val searchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                // Memproses query pencarian saat pengguna menekan tombol cari
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                taskViewModel.filterTasks(newText)
+                searchView.clearFocus()
+                return true
+            }
+
+        })
         return true
     }
 
@@ -89,15 +120,15 @@ class TaskActivity : AppCompatActivity() {
                 startActivity(settingIntent)
                 true
             }
-
             R.id.action_filter -> {
                 showFilteringPopUpMenu()
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+
 
     private fun showFilteringPopUpMenu() {
         val view = findViewById<View>(R.id.action_filter) ?: return

@@ -6,12 +6,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +30,8 @@ import com.dicoding.todoapp.ui.ViewModelFactory
 import com.dicoding.todoapp.ui.list.TaskActivity
 import com.dicoding.todoapp.utils.DatePickerFragment
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.textfield.TextInputLayout
+import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.text.SimpleDateFormat
@@ -46,30 +52,60 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
         binding = ActivityAddTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.title = getString(R.string.add_task)
+        // Mengatur action bar
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.WHITE))
+        supportActionBar?.title = "Tambah Pesanan"
 
+        // Menginisialisasi AutoCompleteTextView dan mengatur teks hint
+        val autoCompleteTextViewBahan: AutoCompleteTextView =
+            findViewById(R.id.autoCompleteTextViewBahan)
+
+        // Mendapatkan daftar provinsi dari resources
+        val bahanSpinner = resources.getStringArray(R.array.bahanSpinner)
+
+        // Inisialisasi adapter untuk AutoCompleteTextView
+        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, bahanSpinner)
+        autoCompleteTextViewBahan.setAdapter(adapter)
 
         binding.chooseImageButton.setOnClickListener {
             checkStoragePermission()
         }
+
+        binding.btnSave.setOnClickListener{
+            save()
+        }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_add, menu)
-        return true
+//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//        menuInflater.inflate(R.menu.menu_add, menu)
+//        return true
+//    }
+    private fun save(){
+        val factory = ViewModelFactory.getInstance(this)
+        val model = ViewModelProvider(this, factory)[AddTaskViewModel::class.java]
+        model.addTask(Task(0, binding.edNama.text.toString(), binding.edAlamat.text.toString(), binding.edNoHp.text.toString(),
+            imageUri.toString(),binding.autoCompleteTextViewBahan.text.toString(),binding.edJumlah.text.toString().toInt(), dueDateMillis, binding.edNote.text.toString()))
+        val detailIntent = Intent(this, TaskActivity::class.java)
+        this.startActivity(detailIntent)
+        true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_save -> {
-                val factory = ViewModelFactory.getInstance(this)
-                val model = ViewModelProvider(this, factory)[AddTaskViewModel::class.java]
-                model.addTask(Task(0, binding.edNama.text.toString(), binding.edAlamat.text.toString(), binding.edNoHp.text.toString(),
-                imageUri!!.path!!,binding.edBahan.text.toString(),binding.edJumlah.text.toString().toInt(), dueDateMillis, binding.edNote.text.toString()))
-                val detailIntent = Intent(this, TaskActivity::class.java)
-                this.startActivity(detailIntent)
+//            R.id.btn_save -> {
+//                val factory = ViewModelFactory.getInstance(this)
+//                val model = ViewModelProvider(this, factory)[AddTaskViewModel::class.java]
+//                model.addTask(Task(0, binding.edNama.text.toString(), binding.edAlamat.text.toString(), binding.edNoHp.text.toString(),
+//                imageUri.toString(),binding.autoCompleteTextViewBahan.text.toString(),binding.edJumlah.text.toString().toInt(), dueDateMillis, binding.edNote.text.toString()))
+//                val detailIntent = Intent(this, TaskActivity::class.java)
+//                this.startActivity(detailIntent)
+//                true
+//            }
 
-
+            android.R.id.home -> {
+                // Kembali ke Fragment sebelumnya
+                onBackPressed()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -138,11 +174,16 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
                 REQUEST_CODE_IMAGE_PICKER -> {
                     imageUri = data!!.data
 
-                    binding.selectedImage.setImageURI(imageUri)
+//                    binding.selectedImage.setImageURI(imageUri)
+                    Picasso.get().load(imageUri).into(binding.selectedImage)
+
 
                     imageBitmap = MediaStore.Images.Media.getBitmap(
                         this.contentResolver, imageUri
                     )
+
+                    // Menampilkan gambar yang terpilih
+                    binding.selectedImage.visibility = View.VISIBLE
                 }
 
             }

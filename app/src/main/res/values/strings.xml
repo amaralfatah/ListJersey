@@ -30,4 +30,15 @@
     <string name="filter_all">All</string>
     <string name="filter_active">Active</string>
     <string name="filter_completed">Completed</string>
+
+    <string-array name="bahanSpinner">
+        <item>Pilih Bahan</item>
+        <item>Milano</item>
+        <item>Polymesh</item>
+        <item>Brazil</item>
+        <item>Airwalk</item>
+        <item>Dropneedle</item>
+        <item>Embosh</item>
+        <item>Lainnya</item>
+    </string-array>
 </resources>
