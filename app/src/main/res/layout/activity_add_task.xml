@@ -161,20 +161,25 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/model_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Mode Jahit"
-            android:id="@+id/modeJahitLayout"
             android:layout_marginTop="12dp"
-            app:startIconDrawable="@drawable/baseline_content_cut_24"
-            app:layout_constraintTop_toBottomOf="@+id/bahan_layout">
+            android:hint="Model"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bahan_layout"
+            app:startIconDrawable="@drawable/baseline_content_cut_24">
 
-            <Spinner
-                android:id="@+id/spinnerModeJahit"
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/autoCompleteTextViewModel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dropdown" />
+                android:ems="10"
+                android:padding="8dp"
+                android:textAlignment="textEnd"
+                android:completionThreshold="0"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -187,7 +192,7 @@
             android:id="@+id/jumlah_layout"
             android:layout_marginTop="12dp"
             app:startIconDrawable="@drawable/baseline_jumlah_24"
-            app:layout_constraintTop_toBottomOf="@+id/modeJahitLayout">
+            app:layout_constraintTop_toBottomOf="@+id/model_layout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edJumlah"

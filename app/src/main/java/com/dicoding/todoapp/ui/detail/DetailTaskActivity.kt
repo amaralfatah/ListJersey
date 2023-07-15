@@ -5,6 +5,8 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -46,6 +48,11 @@ class DetailTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateLis
         binding = ActivityTaskDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Mengatur action bar
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.WHITE))
+        supportActionBar?.title = "Detail Pesanan"
+
         //TODO 11 : Show detail task and implement delete action
         val idTask = intent.getIntExtra(TASK_ID, 1)
         val factory = ViewModelFactory.getInstance(this)
@@ -62,13 +69,15 @@ class DetailTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateLis
             binding.autoCompleteTextViewBahan.showDropDown()
         }
 
-        val spinnerModeJahit: Spinner = findViewById(R.id.spinnerModeJahit)
-        val modeJahitOptions = resources.getStringArray(R.array.modeJahit)
+        val bahanSpinnerModel = resources.getStringArray(R.array.modelJahit)
 
-        // Inisialisasi adapter untuk Spinner
-        val adapterSpinner = ArrayAdapter(this, android.R.layout.simple_spinner_item, modeJahitOptions)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerModeJahit.adapter = adapterSpinner
+        val adapterModel = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, bahanSpinnerModel)
+        binding.autoCompleteTextViewModel.setAdapter(adapterModel)
+
+        //menu model langsung tampil
+        binding.autoCompleteTextViewModel.setOnClickListener {
+            binding.autoCompleteTextViewModel.showDropDown()
+        }
 
         model.setTaskId(idTask)
         model.task.observe(this) {
@@ -119,7 +128,7 @@ class DetailTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateLis
                         binding.edNoHp.text.toString(),
                         imageUri.toString(),
                         binding.autoCompleteTextViewBahan.text.toString(),
-                        binding.spinnerModeJahit.selectedItem.toString(),
+                        binding.autoCompleteTextViewModel.text.toString(),
                         binding.edJumlah.text.toString().toInt(),
                         dueDateMillis,
                         binding.edNote.text.toString()

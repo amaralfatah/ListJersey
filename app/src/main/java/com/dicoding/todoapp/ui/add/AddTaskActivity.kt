@@ -69,13 +69,15 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
             autoCompleteTextViewBahan.showDropDown()
         }
 
-        val spinnerModeJahit: Spinner = findViewById(R.id.spinnerModeJahit)
-        val modeJahitOptions = resources.getStringArray(R.array.modeJahit)
+        val bahanSpinnerModel = resources.getStringArray(R.array.modelJahit)
 
-        // Inisialisasi adapter untuk Spinner
-        val adapterSpinner = ArrayAdapter(this, android.R.layout.simple_spinner_item, modeJahitOptions)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerModeJahit.adapter = adapterSpinner
+        val adapterModel = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, bahanSpinnerModel)
+        binding.autoCompleteTextViewModel.setAdapter(adapterModel)
+
+        //menu model langsung tampil
+        binding.autoCompleteTextViewModel.setOnClickListener {
+            binding.autoCompleteTextViewModel.showDropDown()
+        }
 
         binding.chooseImageButton.setOnClickListener {
             checkStoragePermission()
@@ -116,7 +118,7 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
                     binding.edNoHp.text.toString(),
                     imageUri.toString(),
                     binding.autoCompleteTextViewBahan.text.toString(),
-                    binding.spinnerModeJahit.selectedItem.toString(),
+                    binding.autoCompleteTextViewModel.text.toString(),
                     binding.edJumlah.text.toString().toInt(),
                     dueDateMillis,
                     binding.edNote.text.toString()

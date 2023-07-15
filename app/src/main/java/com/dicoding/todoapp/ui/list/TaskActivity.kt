@@ -1,6 +1,8 @@
 package com.dicoding.todoapp.ui.list
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -33,6 +35,7 @@ class TaskActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task)
         setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.title = "Dexshop Jersey"
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             val addIntent = Intent(this, AddTaskActivity::class.java)
