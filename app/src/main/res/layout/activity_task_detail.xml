@@ -7,16 +7,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="16dp">
 
         <TextView
             android:id="@+id/tv_detail_pelanggan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Detail Pelanggan"
+            android:text="@string/detail_pelanggan"
             android:textAlignment="center"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/primary_color"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nama"
+            android:hint="@string/nama"
             android:id="@+id/nama_layout"
             android:layout_marginTop="12dp"
             app:startIconDrawable="@drawable/baseline_person_24"
@@ -46,7 +46,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="alamat"
+            android:hint="@string/Alamat"
             android:id="@+id/alamat_layout"
             android:layout_marginTop="12dp"
             app:startIconDrawable="@drawable/baseline_location_on_24"
@@ -66,7 +66,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="nomor hp"
+            android:hint="@string/nomor_telpon"
             android:id="@+id/nomorhp_layout"
             android:layout_marginTop="12dp"
             app:startIconDrawable="@drawable/baseline_phone_android_24"
@@ -86,8 +86,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Detail Pesanan"
-            android:textSize="16dp"
+            android:text="@string/detail_pesanan"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/primary_color"
             app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +105,7 @@
                 android:id="@+id/add_ed_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Desain Jersey"
+                android:text="@string/desain_jersey"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -117,7 +117,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:onClick="chooseImage"
-                android:text="Pilih Gambar"
+                android:text="@string/pilih_gambar"
                 android:textColor="@android:color/holo_blue_dark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -142,8 +142,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="Bahan"
-            app:endIconMode="clear_text"
+            android:hint="@string/bahan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/address_layout"
@@ -154,7 +153,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:textAlignment="textEnd"
+                android:completionThreshold="0"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -162,7 +163,25 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Jumlah"
+            android:hint="Mode Jahit"
+            android:id="@+id/modeJahitLayout"
+            android:layout_marginTop="12dp"
+            app:startIconDrawable="@drawable/baseline_content_cut_24"
+            app:layout_constraintTop_toBottomOf="@+id/bahan_layout">
+
+            <Spinner
+                android:id="@+id/spinnerModeJahit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/jumlah"
             android:id="@+id/jumlah_layout"
             android:layout_marginTop="12dp"
             app:startIconDrawable="@drawable/baseline_jumlah_24"
@@ -198,15 +217,15 @@
                 android:id="@+id/dueDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="Batas Waktu" />
+                android:layout_marginStart="10dp"
+                android:text="@string/batas_waktu" />
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Note"
+            android:hint="@string/catatan"
             android:id="@+id/note_layout"
             android:layout_marginTop="12dp"
             app:startIconDrawable="@drawable/baseline_note_24"
@@ -228,7 +247,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/bg_btn_trans"
-            android:text="Hapus"
+            android:text="@string/hapus"
             android:textColor="@color/black"
             app:backgroundTint="@color/black"
             app:cornerRadius="16dp"
@@ -242,7 +261,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:text="Simpan"
+            android:text="@string/simpan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_hapus"
             app:layout_constraintTop_toBottomOf="@+id/note_layout" />

@@ -14,6 +14,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -63,6 +64,19 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, bahanSpinner)
         autoCompleteTextViewBahan.setAdapter(adapter)
 
+        //menu bahan langsung tampil
+        autoCompleteTextViewBahan.setOnClickListener {
+            autoCompleteTextViewBahan.showDropDown()
+        }
+
+        val spinnerModeJahit: Spinner = findViewById(R.id.spinnerModeJahit)
+        val modeJahitOptions = resources.getStringArray(R.array.modeJahit)
+
+        // Inisialisasi adapter untuk Spinner
+        val adapterSpinner = ArrayAdapter(this, android.R.layout.simple_spinner_item, modeJahitOptions)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerModeJahit.adapter = adapterSpinner
+
         binding.chooseImageButton.setOnClickListener {
             checkStoragePermission()
         }
@@ -108,9 +122,12 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
                 )
             )
             val detailIntent = Intent(this, TaskActivity::class.java)
-            this.startActivity(detailIntent)
+            detailIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(detailIntent)
+            finish()
         }
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

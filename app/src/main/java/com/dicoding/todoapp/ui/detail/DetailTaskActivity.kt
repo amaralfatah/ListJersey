@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -56,6 +57,19 @@ class DetailTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateLis
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, bahanSpinner)
         binding.autoCompleteTextViewBahan.setAdapter(adapter)
 
+        //menu bahan langsung tampil
+        binding.autoCompleteTextViewBahan.setOnClickListener {
+            binding.autoCompleteTextViewBahan.showDropDown()
+        }
+
+        val spinnerModeJahit: Spinner = findViewById(R.id.spinnerModeJahit)
+        val modeJahitOptions = resources.getStringArray(R.array.modeJahit)
+
+        // Inisialisasi adapter untuk Spinner
+        val adapterSpinner = ArrayAdapter(this, android.R.layout.simple_spinner_item, modeJahitOptions)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerModeJahit.adapter = adapterSpinner
+
         model.setTaskId(idTask)
         model.task.observe(this) {
             binding.edNama.setText(it.namaPelanggan)
@@ -74,8 +88,11 @@ class DetailTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateLis
                 model.deleteTask()
 
                 val toDetail = Intent(this, TaskActivity::class.java)
-                this.startActivity(toDetail)
+                toDetail.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(toDetail)
+                finish()
             }
+
             binding.btnSimpan.setOnClickListener {
                 if (binding.edNama.text.toString().isEmpty() ||
                     binding.edAlamat.text.toString().isEmpty() ||
@@ -85,17 +102,15 @@ class DetailTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateLis
                     binding.edJumlah.text.toString().isEmpty() ||
                     binding.edNote.text.toString().isEmpty()
                 ) {
-                    Toast.makeText(this, "Data tidak boleh kosong", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(this, "Data tidak boleh kosong", Toast.LENGTH_SHORT).show()
                 } else if (!resources.getStringArray(R.array.bahanSpinner)
                         .contains(binding.autoCompleteTextViewBahan.text.toString())
                 ) {
                     Toast.makeText(
                         this,
-                        "Bahan tidak boleh yang tidak ada dalam list",
+                        "Bahan tidak tersedia",
                         Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    ).show()
                 } else {
                     model.task.removeObservers(this)
                     model.updateTask(
@@ -110,10 +125,12 @@ class DetailTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateLis
                     )
 
                     val toDetail = Intent(this, TaskActivity::class.java)
-                    this.startActivity(toDetail)
+                    toDetail.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(toDetail)
+                    finish()
                 }
-
             }
+
         }
         binding.chooseImageButton.setOnClickListener {
             checkStoragePermission()

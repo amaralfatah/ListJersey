@@ -30,9 +30,21 @@
     <string name="filter_all">Semua</string>
     <string name="filter_active">Aktif</string>
     <string name="filter_completed">Selesai</string>
+    <string name="detail_pelanggan">Detail Pelanggan</string>
+    <string name="nama">Nama</string>
+    <string name="Alamat">alamat</string>
+    <string name="nomor_telpon">Nomor Telpon</string>
+    <string name="detail_pesanan">Detail Pesanan</string>
+    <string name="desain_jersey">Desain Jersey</string>
+    <string name="pilih_gambar">Pilih Gambar</string>
+    <string name="bahan">Bahan</string>
+    <string name="jumlah">Jumlah</string>
+    <string name="batas_waktu">Batas Waktu</string>
+    <string name="catatan">Catatan</string>
+    <string name="hapus">Hapus</string>
+    <string name="simpan">Simpan</string>
 
     <string-array name="bahanSpinner">
-        <item>Pilih Bahan</item>
         <item>Milano</item>
         <item>Polymesh</item>
         <item>Brazil</item>
@@ -40,5 +52,11 @@
         <item>Dropneedle</item>
         <item>Embosh</item>
         <item>Lainnya</item>
+    </string-array>
+
+    <string-array name="modeJahit">
+        <item>Mode Press</item>
+        <item>Mode Jahit</item>
+
     </string-array>
 </resources>
