@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -71,7 +70,8 @@ class DetailTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateLis
 
         val bahanSpinnerModel = resources.getStringArray(R.array.modelJahit)
 
-        val adapterModel = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, bahanSpinnerModel)
+        val adapterModel =
+            ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, bahanSpinnerModel)
         binding.autoCompleteTextViewModel.setAdapter(adapterModel)
 
         //menu model langsung tampil
@@ -88,6 +88,7 @@ class DetailTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateLis
             binding.ivPreview.isVisible = true
             imageUri = it.imagePath.toUri()
             binding.autoCompleteTextViewBahan.setText(it.bahan)
+            binding.autoCompleteTextViewModel.setText(it.model)
             binding.edJumlah.setText(it.jumlah.toString())
             binding.dueDate.text = DateConverter.convertMillisToString(it.dueDateMillis)
             binding.edNote.setText(it.note)
@@ -117,7 +118,15 @@ class DetailTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateLis
                 ) {
                     Toast.makeText(
                         this,
-                        "Bahan tidak tersedia",
+                        "Bahan tidak boleh yang tidak ada dalam list",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else if (!resources.getStringArray(R.array.modelJahit)
+                        .contains(binding.autoCompleteTextViewModel.text.toString())
+                ) {
+                    Toast.makeText(
+                        this,
+                        "Model tidak boleh yang tidak ada dalam list",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {

@@ -68,7 +68,7 @@ class TaskRepository(private val tasksDao: TaskDao) {
         noHp: String,
         imagePath: String,
         bahan: String,
-        model:String,
+        model: String,
         jumlah: Int,
         dueDateMillis: Long,
         note: String

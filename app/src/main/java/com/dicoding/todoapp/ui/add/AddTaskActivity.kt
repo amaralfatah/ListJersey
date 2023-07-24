@@ -14,7 +14,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -71,7 +70,8 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
 
         val bahanSpinnerModel = resources.getStringArray(R.array.modelJahit)
 
-        val adapterModel = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, bahanSpinnerModel)
+        val adapterModel =
+            ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, bahanSpinnerModel)
         binding.autoCompleteTextViewModel.setAdapter(adapterModel)
 
         //menu model langsung tampil
@@ -107,6 +107,14 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
         ) {
             Toast.makeText(this, "Data tidak boleh kosong", Toast.LENGTH_SHORT)
                 .show()
+        } else if (!resources.getStringArray(R.array.modelJahit)
+                .contains(binding.autoCompleteTextViewModel.text.toString())
+        ) {
+            Toast.makeText(
+                this,
+                "Model tidak boleh yang tidak ada dalam list",
+                Toast.LENGTH_SHORT
+            ).show()
         } else {
             val factory = ViewModelFactory.getInstance(this)
             val model = ViewModelProvider(this, factory)[AddTaskViewModel::class.java]
